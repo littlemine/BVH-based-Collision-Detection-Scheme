@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Sources\Framework">
+      <UniqueIdentifier>{6b86bc7d-5ba6-4d5e-9c1d-16017693a7f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Framework\AppBase">
+      <UniqueIdentifier>{33175775-705c-4d71-835f-2dd52bdc6f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Framework\CudaProject">
+      <UniqueIdentifier>{b29d0bd7-fac9-46d0-9633-91fbd962000b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\base">
+      <UniqueIdentifier>{bc1231c3-8347-4da1-9e32-23a2c05d105c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\world">
+      <UniqueIdentifier>{2b893a69-e6c6-4b37-b27e-6671ef5f50dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\utility">
+      <UniqueIdentifier>{a141b201-f4a2-48c1-8e45-ca2795b86821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\system">
+      <UniqueIdentifier>{9d138233-9234-4240-b48d-55f2ef9e8ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\collision">
+      <UniqueIdentifier>{63d2bfa2-b6e6-47ee-8ca1-3b2b9665971f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\system\CudaDevice">
+      <UniqueIdentifier>{9b8893af-2fba-4609-bd92-fdd882f7a687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\system\Logger">
+      <UniqueIdentifier>{d49897af-7955-47f4-9693-249e888a40e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\system\Logic">
+      <UniqueIdentifier>{2da07e26-8832-41e2-ba88-140339cb95ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\collision\auxiliary">
+      <UniqueIdentifier>{bc85910e-71ce-488c-be34-64f03843bb87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\collision\lbvh">
+      <UniqueIdentifier>{ace470f7-fdd8-4c02-a3f7-4d9cc6538262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\collision\bvtt_front">
+      <UniqueIdentifier>{56eedd6a-4e6c-4feb-982a-0eb66c5a97d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Setting">
+      <UniqueIdentifier>{30a0df0e-8582-4a34-ad49-2d731bddfcd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\collision\narrow_phase">
+      <UniqueIdentifier>{8683aa9e-2f3e-43ef-9615-bcad5fe49ed4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\AppBase\AppBase.cpp">
+      <Filter>Sources\Framework\AppBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\AppBase\Main.cpp">
+      <Filter>Sources\Framework\AppBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\entry_cudaproject.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectModuleRegister.cpp">
+      <Filter>Sources\Framework\CudaProject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectApp.cpp">
+      <Filter>Sources\Framework\CudaProject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\BvhRestrLog.cpp">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\FlOrderLog.cpp">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\setting\CDBenchmarkSettings.cpp">
+      <Filter>Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\world\Scene.cpp">
+      <Filter>Sources\world</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\AppBase\AppBase.h">
+      <Filter>Sources\Framework\AppBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\AppBase\Main.h">
+      <Filter>Sources\Framework\AppBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectModuleRegister.h">
+      <Filter>Sources\Framework\CudaProject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectApp.h">
+      <Filter>Sources\Framework\CudaProject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaDeviceUtils.h">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaExecutionPolicy.h">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaHostUtils.h">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaKernelUtils.cuh">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaThrustUtils.hpp">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaTimer.hpp">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\Meta.h">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\Timer.hpp">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\Utils.h">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\base\AggregatedAttribs.h">
+      <Filter>Sources\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\base\Bv.h">
+      <Filter>Sources\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\base\MultiArray.h">
+      <Filter>Sources\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\base\MultiObject.h">
+      <Filter>Sources\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\base\Singleton.h">
+      <Filter>Sources\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\system\CudaDevice\CudaDevice.h">
+      <Filter>Sources\system\CudaDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\system\Log\Logger.hpp">
+      <Filter>Sources\system\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\system\Logic\BenchmarkLogic.hpp">
+      <Filter>Sources\system\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BVTTFront.h">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseInter.h">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseIntra.h">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseKernels.cuh">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhBV.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhExtNode.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhIntNode.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhPrimitiveNode.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvh.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhFixedDeformable.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhKernels.cuh">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhRigid.h">
+      <Filter>Sources\collision\lbvh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\auxiliary\BvhRestrLog.h">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\auxiliary\FlOrderLog.h">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\auxiliary\OrderLog.h">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\BvhSettings.h">
+      <Filter>Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\BvttFrontSettings.h">
+      <Filter>Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\CDBenchmarkConfiguration.hpp">
+      <Filter>Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\CDBenchmarkSettings.h">
+      <Filter>Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\ModelReader.hpp">
+      <Filter>Sources\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\world\Scene.h">
+      <Filter>Sources\world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\narrow_phase\narrow_phase.cuh">
+      <Filter>Sources\collision\narrow_phase</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\..\..\..\Project\Mine\utility\CudaDeviceUtils.cu">
+      <Filter>Sources\utility</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\utility\CudaKernelUtils.cu">
+      <Filter>Sources\utility</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\system\CudaDevice\CudaDevice.cu">
+      <Filter>Sources\system\CudaDevice</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\system\CudaDevice\CudaKernelLauncher.cu">
+      <Filter>Sources\system\CudaDevice</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvhCDKernels.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontGenerateKernels.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontKeepKernels.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseInter.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseIntra.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontReorderKernels.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontRestructureKernels.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhBV.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhExtNode.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhIntNode.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhPrimitiveNode.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhBuildKernels.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhFixedDeformable.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhRestructureKernels.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhRigid.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhUpdateKernels.cu">
+      <Filter>Sources\collision\lbvh</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\BvhRestrLog.cu">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\FlOrderLog.cu">
+      <Filter>Sources\collision\auxiliary</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontPruneSproutKernels.cu">
+      <Filter>Sources\collision\bvtt_front</Filter>
+    </CudaCompile>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\narrow_phase\narrow_phase.cu">
+      <Filter>Sources\collision\narrow_phase</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>

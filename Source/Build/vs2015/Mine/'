@@ -1,0 +1,152 @@
+/**	\file	BvttFrontLooseIntra.h
+*	\brief	BvttFrontLooseIntra acceleration structure driven by 
+*	\author	littlemine
+*	\ref	article - A BVH - based collision detection scheme for deformable models with ordering and restructuring
+*/
+
+#ifndef __BVTT_FRONT_LOOSE_INTRA_H_
+#define __BVTT_FRONT_LOOSE_INTRA_H_
+
+#include <thrust/device_vector.h>
+
+#include <BvttFrontSettings.h>
+#include <MnDataStructure/Base/MultiArray.h>
+#include <MnDataStructure/Auxiliary/FlOrderLog.h>
+#include <MnDataStructure/LBVH/LBvh.h>
+#include <MnDataStructure/Collision/Constraint.cuh>
+#include <MnDataStructure/Collision/CDNarrowPhase.cuh>
+
+namespace mn {
+
+	extern __device__ int2 keycps[];
+
+	class CudaDevice;
+
+	/// for now, maintenance work is configured by this input alone
+	enum class BvttFrontLooseIntraMaintenance {
+		BVH_CD, PURE_BVH_CD, HEURISTIC_BVH_CD, CLUSTERED_BVH_CD, CD_FROM_PAIRS, CD_FROM_CLUSTERED_PAIRS, GENERATE, SHRINK_SPROUT, REORDER, KEEP, MARK, RESTRUCTURE
+	};
+
+	/*
+	* \brief	BvttFrontLooseIntra
+	* \note		RAII
+	*/
+	class BvttFrontLooseIntra {
+	public:
+		BvttFrontLooseIntra() = delete;
+		// LBvh<ModelType::FixedDeformableType>
+		BvttFrontLooseIntra(BvttFrontIntraBuildConfig<LBvh<ModelType::FixedDeformableType>> config);
+		~BvttFrontLooseIntra();
+		void	maintain(BvttFrontLooseIntraMaintenance scheme);
+
+		void	inspectResults();
+	private:
+		/// main maintenance methods
+		void	pureReorder();
+		void	classifyFronts();	// before maintenance
+		void	compactFronts();	// after maintenance
+		void	generate();
+		void	shrinkSprout();
+		void	reorder();
+		void	keep();
+		void	mark();
+
+		void	pureBvhCd();
+
+		void	bvhCd();
+		void	heuristicBvhCd();
+		void	clusteredBvhCd();
+		void	bvhCdFromPairs();
+		void	bvhCdFromClusteredPairs();
+		/// narrow phase
+		void	proximityQuery();
+
+		CudaDevice*					TheCudaDevice;
+		LBvh<ModelType::FixedDeformableType>*	_pBvh;
+		MultiArray<int2, 4>			_fronts;
+		FlOrderLog					_log;
+
+		int*						d_taskNum;
+		thrust::device_vector<int3>	d_tasks;	///< primid, start lid, ending st
+		thrust::device_vector<int3>	d_orderedTasks;	///< primid, start lid, ending st
+		/// broad phase
+		int*						d_cpNum, _cpNum;
+		thrust::device_vector<int2>	d_cpRes;
+		thrust::device_vector<int2>	d_orderedCdpairs;
+
+		thrust::device_vector<int>	d_halfPair;
+		thrust::device_vector<uint>	d_cpCntLog;
+		thrust::device_vector<uint>	d_cpPosLog;
+		thrust::device_vector<int>	d_cdpairOffsets;
+		/// narrow phase
+		int							*d_vfConNum, *d_eeConNum;
+		IneqConArray<ConstraintType::VF>	_vfCons;
+		IneqConArray<ConstraintType::EE>	_eeCons;
+	};
+
+	__global__ void reorderCdPairs(uint cnt, uint* _segpos, int *_offset, int2 *_pairs, int2 *_orderedPairs);
+	__global__ void pureReorderLooseIntraFrontsWithLog(uint2 ftSize, int2 **_ftLists, int2 **_slideFtLists, FlOrderCompletePort _log);	///< key(cp.y), used on compacted fronts
+	__global__ void classifyLooseIntraFrontsWithLog(uint2 ftSize, uint extSize, int2 **_ftLists, int2 **_slideFtLists, FlOrderCompletePort _log);	///< key(op, cp.y), prepare for maintenance
+	__global__ void compactLooseIntraFrontsWithLog(uint2 ftSize, int2 **_ftLists, int2 **_slideFtLists, FlOrderCompletePort _log);	///< key(cp.y), eliminate invalid nodes
+
+	__global__ void pureBvhCD(uint primsize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, int* _cpNum, int2* _cpRes);
+
+	__global__ void bvhCD(uint primsize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, 
+		uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	__global__ void heuristicBvhCD(uint primsize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, 
+		int* _primMap, uint* _segpos, int2* _prevCps, uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	__global__ void heuristicBvhCDNew(uint primsize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _segpos, int* _prevHalfCps,
+		uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	
+	/// from cd pairs
+	__global__ void bvhCDFromPairs(uint numpair, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _segpos, int2* _prevCps,
+		uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	__global__ void supplementCDPairs(uint primnum, uint pairnum, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _segpos, int2* _prevCps,
+		uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+
+	/// from clustered cd pairs
+	__global__ void sortAndMarkCdPairs(uint cnt, uint* _segpos, int *_offset, int2 *_pairs, int2 *_orderedPairs);
+	__global__ void genTasks(int cpnum, uint primnum, int2* _prevCps, BvhExtNodeCompletePort _lvs, int *_cpNum, int2 *_cpRes, int *_taskNum, int3* _tasks, uint *_cnt);
+	__global__ void scheduleTasks(int tasknum, uint* _offset, uint * _cnt, int3* _tasks, int3* _orderedTasks);
+	__global__ void handleTasks(int tasknum, int3* _orderedTasks, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _cnt, uint* _offset, int* _cpNum, int2* _cpRes);
+
+	__global__ void bvhClusteredCD(uint primsize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	__global__ void bvhCDFromClusteredPairs(uint numpair, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _segpos, int2* _prevCps,
+		uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	__global__ void supplementClusteredCDPairs(uint primnum, uint pairnum, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint* _segpos, int2* _prevCps,
+		uint* _cnt, int* _offset, int* _cpNum, int2* _cpRes);
+	__global__ void checkCollisions(int cpnum, int2* _cps, BvhExtNodeCompletePort _lvs, int* _halfPairs);
+
+	/// front-based
+	__global__ void genLooseIntraFrontsWithLog(uint primsize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint *_ftSizes, int2 **_ftLists,
+		FlOrderCompletePort _log, int *_cpNum, int2 *_cpRes);
+
+	__global__ void shrinkIntLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void sproutIntLooseIntraFrontsWithLog(uint splitPos, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void maintainIntLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void shrinkExtLooseIntraFrontsWithLog(uint splitPos, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void sproutExtLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void maintainExtLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+
+	__global__ void reorderIntLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void reorderExtLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, int2 **_ftLists,
+		FlOrderCompletePort _log, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+
+	__global__ void keepIntLooseIntraFronts(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks,
+		uint ftSize, int2 *_ftList, int *_cpNum, int2 *_cpRes);
+	__global__ void keepExtLooseIntraFronts(BvhExtNodeCompletePort _lvs, uint ftSize, int2 *_ftList, int *_cpNum, int2 *_cpRes);
+
+	__global__ void markIntLooseIntraFronts(uint extSize, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks,
+		uint ftSize, int2 *_ftList, FlOrderCompletePort _log, int *_cpNum, int2 *_cpRes);
+	__global__ void markExtLooseIntraFronts(uint extSize, BvhExtNodeCompletePort _lvs, uint ftSize, int2 *_ftList, FlOrderCompletePort _log, int *_cpNum, int2 *_cpRes);
+
+}
+
+#endif

@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FEA41310-7EF2-4B24-B5AA-4C07A84ED1E4}</ProjectGuid>
+    <RootNamespace>CudaProject</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.0.props" />
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\Bin\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Temp\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+    <IntDir>$(SolutionDir)..\..\..\Temp\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\Bin\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\Bin\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\Temp\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>$(ProjectName)$(PlatformName)$(Configuration)</TargetName>
+    <IntDir>$(SolutionDir)..\..\..\Temp\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\Bin\$(ProjectName)\vs2015$(PlatformName)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Project\Mine;$(SolutionDir)..\..\..\Externals\inc;$(SolutionDir)..\..\..\Externals\inc\cuda;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Externals\lib\vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cudart.lib;cudadevrt.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <CodeGeneration>compute_35,sm_35</CodeGeneration>
+      <Defines>
+      </Defines>
+      <Runtime>InheritFromHost</Runtime>
+      <CudaRuntime>None</CudaRuntime>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Project\Mine;$(SolutionDir)..\..\..\Externals\inc;$(SolutionDir)..\..\..\Externals\inc\cuda;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Externals\lib\vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cudart.lib;cudadevrt.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile />
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <CodeGeneration>compute_61,sm_61</CodeGeneration>
+      <Defines>
+      </Defines>
+      <Runtime>InheritFromHost</Runtime>
+      <CudaRuntime>None</CudaRuntime>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Project\Mine;$(SolutionDir)..\..\..\Externals\inc;$(SolutionDir)..\..\..\Externals\inc\cuda;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Externals\lib\vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cudart.lib;cudadevrt.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <CodeGeneration>compute_35,sm_35</CodeGeneration>
+      <Defines>
+      </Defines>
+      <Runtime>InheritFromHost</Runtime>
+      <CudaRuntime>None</CudaRuntime>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\Project\Mine;$(SolutionDir)..\..\..\Externals\inc;$(SolutionDir)..\..\..\Externals\inc\cuda;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\Externals\lib\vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cudart.lib;cudadevrt.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile />
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <CodeGeneration>compute_61,sm_61</CodeGeneration>
+      <Defines>
+      </Defines>
+      <Runtime>InheritFromHost</Runtime>
+      <CudaRuntime>None</CudaRuntime>
+      <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\BvhRestrLog.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\FlOrderLog.cpp" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\narrow_phase\narrow_phase.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+    <ClCompile Include="..\..\..\..\Project\Mine\entry_cudaproject.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\AppBase\AppBase.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\AppBase\Main.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectModuleRegister.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectApp.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\setting\CDBenchmarkSettings.cpp" />
+    <ClCompile Include="..\..\..\..\Project\Mine\world\Scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Project\Mine\base\AggregatedAttribs.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\base\Bv.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\base\MultiArray.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\base\MultiObject.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\base\Singleton.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\auxiliary\BvhRestrLog.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\auxiliary\FlOrderLog.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\auxiliary\OrderLog.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BVTTFront.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseInter.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseIntra.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseKernels.cuh" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhBV.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhExtNode.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhIntNode.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\BvhPrimitiveNode.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvh.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhFixedDeformable.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhKernels.cuh" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhRigid.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\collision\narrow_phase\narrow_phase.cuh" />
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\AppBase\AppBase.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\AppBase\Main.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectModuleRegister.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\Frameworks\CudaProject\CudaProjectApp.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\BvhSettings.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\BvttFrontSettings.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\CDBenchmarkConfiguration.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\setting\CDBenchmarkSettings.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\system\CudaDevice\CudaDevice.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\system\Logic\BenchmarkLogic.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\system\Log\Logger.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaDeviceUtils.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaExecutionPolicy.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaHostUtils.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaKernelUtils.cuh" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaThrustUtils.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\CudaTimer.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\Meta.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\ModelReader.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\Timer.hpp" />
+    <ClInclude Include="..\..\..\..\Project\Mine\utility\Utils.h" />
+    <ClInclude Include="..\..\..\..\Project\Mine\world\Scene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\BvhRestrLog.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\auxiliary\FlOrderLog.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvhCDKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontGenerateKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontKeepKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseInter.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontLooseIntra.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontReorderKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontRestructureKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\bvtt_front\BvttFrontPruneSproutKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhBV.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhExtNode.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhIntNode.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\BvhPrimitiveNode.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhBuildKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhFixedDeformable.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhRestructureKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhRigid.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\collision\lbvh\LBvhUpdateKernels.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\system\CudaDevice\CudaDevice.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\system\CudaDevice\CudaKernelLauncher.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\utility\CudaDeviceUtils.cu" />
+    <CudaCompile Include="..\..\..\..\Project\Mine\utility\CudaKernelUtils.cu" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.0.targets" />
+  </ImportGroup>
+</Project>
