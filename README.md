@@ -4,7 +4,7 @@ This is the collision detection package by littlemine (Xinlei Wang).
 1. Configuration Instructions
 ------------------------------------------------------------------------------
 
-This project is developed by Visual Studio 2015 and CUDA 8/9 on Windows platform. It is the source code of the article [Efficient BVH-based Collision Detection Scheme with Ordering and Restructuring](https://wwwx.cs.unc.edu/~geom/papers/list.php?subject=&name=&year=2018).
+This project is developed by Visual Studio 2015 and CUDA 8/9 on Windows platform. It is the source code of the article [Efficient BVH-based Collision Detection Scheme with Ordering and Restructuring](http://gamma.cs.unc.edu/PAPERS/WangEurographics2018.pdf).
 
 All configurations are set in directory "Source\Project\Mine\setting\".
 All the standalone benchmarks can be downloaded at [UNC Dynamic Scene Benchmarks](http://gamma.cs.unc.edu/DYNAMICB/).
