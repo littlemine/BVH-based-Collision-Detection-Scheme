@@ -50,7 +50,7 @@ namespace mn {
 		static std::string		_inputBaseAddr;
 		static std::string		_outputBaseAddr;
 		static std::vector<Benchmark>	_benchmarks;
-		static  const bool		_enableRestr{ false };
+		static  const bool		_enableRestr{ true };
 		static  const bool		_enableDivergentMark{ true };
 		static  const bool		_includeNarrowPhase{ true };
 

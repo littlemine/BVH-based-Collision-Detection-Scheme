@@ -151,6 +151,54 @@ namespace mn {
 		}
 	}
 
+	__global__ void pruneIntLooseIntraFrontsWithLog(const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists) {
+		uint	idx = blockIdx.x * blockDim.x + threadIdx.x;
+		if (idx >= ftSize) return;
+		const auto _prims = _lvs.getPrimPort();
+		int2	cp = _intFront[idx];
+		int		st = cp.y;
+		const BOX bv = _prims.getBV(cp.x);
+		int		t;
+		/// assume not colliding
+		for (t = _lvs.getlca(_tks.getrangex(st)) >> 1, st--; st >= t && !_tks.overlaps(st, bv); st--);
+		if (st < t && (st + 1 > 0 && !_tks.overlaps(_tks.getpar(st + 1), bv)))
+			return;
+		_slideFtLists[0][atomicAdd(_ftSlideSizes, 1)] = make_int2(cp.x, st + 1);
+		atomicAdd(&_log.intcnt(st + 1), 1);
+		return;
+	}
+
+	__global__ void pruneExtLooseIntraFrontsWithLog(const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_extFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists) {
+		uint idx = blockIdx.x * blockDim.x + threadIdx.x;
+		if (idx >= ftSize) return;
+		const auto _prims = _lvs.getPrimPort();
+		const int2 cp = _extFront[idx];
+		int st = cp.y, gfa;
+		const BOX bv = _prims.getBV(cp.x);
+
+		if (!_lvs.overlaps(st, bv)) {
+			gfa = _lvs.getpar(st);
+			if (_tks.overlaps(gfa, bv)) {
+				_slideFtLists[1][atomicAdd(_ftSlideSizes + 1, 1)] = cp;
+				atomicAdd(&_log.extcnt(st), 1);
+				return;
+			}
+			if ((_lvs.getmark(idx = st) & 4) == 4) 	///< or _lca[st] & 1
+				return;
+			for (st = gfa - 1, gfa = _lvs.getlca(idx) >> 1; st >= gfa && !_tks.overlaps(st, bv); st--);
+			if (st < gfa && (st + 1 > 0 && !_tks.overlaps(_tks.getpar(st + 1), bv)))
+				return;
+			_slideFtLists[0][atomicAdd(_ftSlideSizes, 1)] = make_int2(cp.x, st + 1);
+			atomicAdd(&_log.intcnt(st + 1), 1);
+		}
+		else {
+			_slideFtLists[1][atomicAdd(_ftSlideSizes + 1, 1)] = cp;
+			atomicAdd(&_log.extcnt(st), 1);
+		}
+	}
+
 	/// maintain inter fronts
 	__global__ void maintainIntLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes) {
@@ -269,6 +317,54 @@ namespace mn {
 		atomicAdd(&_log.extcnt(cp.y), 1);
 		if (_lvs.overlaps(cp.x, cp.y)) {
 			_cpRes[atomicAdd(_cpNum, 1)] = make_int2(_prims.getidx(cp.y), _travPrims.getidx(cp.x));
+		}
+	}
+
+	__global__ void pruneIntLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists) {
+		uint	idx = blockIdx.x * blockDim.x + threadIdx.x;
+		if (idx >= ftSize) return;
+		const auto _prims = _lvs.getPrimPort();
+		int2	cp = _intFront[idx];
+		int		st = cp.y;
+		const BOX bv = _travPrims.getBV(cp.x);
+		int		t;
+		/// certainly not colliding
+		for (t = _lvs.getlca(_tks.getrangex(st)) >> 1, st--; st >= t && !_tks.overlaps(st, bv); st--);
+		if (st < t && (st + 1 > 0 && !_tks.overlaps(_tks.getpar(st + 1), bv)))
+			return;
+		_slideFtLists[0][atomicAdd(_ftSlideSizes, 1)] = make_int2(cp.x, st + 1);
+		atomicAdd(&_log.intcnt(st + 1), 1);
+		return;
+	}
+
+	/// ext fronts
+	__global__ void pruneExtLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_extFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists) {
+		uint idx = blockIdx.x * blockDim.x + threadIdx.x;
+		if (idx >= ftSize) return;
+		const auto _prims = _lvs.getPrimPort();
+		const int2 cp = _extFront[idx];
+		int st = cp.y, gfa;
+		const BOX bv = _travPrims.getBV(cp.x);
+		if (!_lvs.overlaps(st, bv)) {
+			gfa = _lvs.getpar(st);
+			if (_tks.overlaps(gfa, bv)) {
+				_slideFtLists[1][atomicAdd(_ftSlideSizes + 1, 1)] = cp;
+				atomicAdd(&_log.extcnt(st), 1);
+				return;
+			}
+			if ((_lvs.getmark(idx = st) & 4) == 4) 	///< or _lca[idx = st] & 1
+				return;
+			for (st = gfa - 1, gfa = _lvs.getlca(idx) >> 1; st >= gfa && !_tks.overlaps(st, bv); st--);
+			if (st < gfa && (st + 1 > 0 && !_tks.overlaps(_tks.getpar(st + 1), bv)))
+				return;
+			_slideFtLists[0][atomicAdd(_ftSlideSizes, 1)] = make_int2(cp.x, st + 1);
+			atomicAdd(&_log.intcnt(st + 1), 1);
+		}
+		else {
+			_slideFtLists[1][atomicAdd(_ftSlideSizes + 1, 1)] = cp;
+			atomicAdd(&_log.extcnt(st), 1);
 		}
 	}
 }

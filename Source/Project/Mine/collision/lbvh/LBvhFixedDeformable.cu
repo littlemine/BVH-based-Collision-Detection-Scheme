@@ -72,6 +72,7 @@ namespace mn {
 		if (CDBenchmarkSettings::enableRestr()) {
 			if (logUpdated()) {
 				restructure();
+				//build();
 				return;
 			}
 		}
@@ -94,6 +95,7 @@ namespace mn {
 		if (CDBenchmarkSettings::enableRestr()) {
 			if (logUpdated()) {
 				restructure();
+				//build();
 				return;	///< automatic measure taking over according to front status
 			}
 		}
@@ -241,7 +243,7 @@ Logger::recordSection<TimerType::GPU>("check_bvh_restr");
 		/// restr threshold is user defined
 		int			opt = _numRtIntNode > (cbvh().intSize() >> 1);// || _numRtSubtree > (cbvh().intSize() >> 3);
 		if (opt) { ///< restructure couldn't handle this much degeneration efficiently
-			str = string_format("%d subtrees and %d internal nodes need restructuring. build(in restr)\n", _numRtSubtree, _numRtIntNode);
+			str = string_format("%d subtrees and %d (%d) internal nodes need restructuring. build\n", _numRtSubtree, _numRtIntNode, cbvh().intSize());
 			std::cout << str << '\n';
 			Logger::message(str);
 
@@ -253,7 +255,7 @@ Logger::recordSection<TimerType::GPU>("check_bvh_restr");
 		}
 		opt = _numRtIntNode < (cbvh().intSize() >> 3);	/// could consider the quantity of related front nodes
 		if (opt) {
-			str = string_format("%d subtrees and %d internal nodes need restructuring. refit(in restr)\n", _numRtSubtree, _numRtIntNode);
+			str = string_format("%d subtrees and %d (%d) internal nodes need restructuring. refit\n", _numRtSubtree, _numRtIntNode, cbvh().intSize());
 			std::cout << str << '\n';
 			Logger::message(str);
 
@@ -317,7 +319,7 @@ Logger::recordSection<TimerType::GPU>("check_bvh_restr");
 		//cbvh().lvs().calcRestrSplitMetrics(cbvh().extSize(), _restrLog.getRestrBvhRoot());
 		cbvh().lvs().calcSplitMetrics(cbvh().extSize());
 
-		str = string_format("%d subtrees and %d internal nodes need restructuring. restr\n", _numRtSubtree, _numRtIntNode);
+		str = string_format("%d subtrees and %d (%d) internal nodes need restructuring. restr\n", _numRtSubtree, _numRtIntNode, cbvh().intSize());
 		std::cout << str << '\n';
 		Logger::message(str);
 

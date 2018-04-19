@@ -289,13 +289,30 @@ namespace mn {
 			_fronts.nsizes(), _fronts.nbufs(), d_cpNum, getRawPtr(d_cpRes));
 
 		_fronts.slide();
-
-		Logger::recordSection<TimerType::GPU>("broad_phase_restr_front");
-
 		reorderFronts();
 
 		checkCudaErrors(cudaMemcpy(&_cpNum, d_cpNum, sizeof(int), cudaMemcpyDeviceToHost));
 		checkThrustErrors(thrust::copy(getDevicePtr(d_cpRes), getDevicePtr(d_cpRes) + _cpNum, getDevicePtr(d_orderedCdpairs)));
+
+		/// prune after restr
+		_log.clear(_pFixedDeformableBvh->getExtNodeSize());
+		_fronts.retrieveSizes();
+		_fronts.resetNextSizes();
+
+		uint osize;
+
+		osize = _fronts.cs(0);
+		configuredLaunch({ "PruneIntLooseInterFrontsWithLog", (int)osize }, pruneIntLooseInterFrontsWithLog,
+			_pRigidBvh->cprim().portobj<0>(), _pFixedDeformableBvh->clvs().portobj<0>(), _pFixedDeformableBvh->ctks().portobj<0>(), osize, (const int2*)_fronts.cbuf(0),
+			_log.portobj<0>(), _fronts.nsizes(), _fronts.nbufs());
+		osize = _fronts.cs(1);
+		configuredLaunch({ "PruneExtLooseInterFrontsWithLog", (int)osize }, pruneExtLooseInterFrontsWithLog,
+			_pRigidBvh->cprim().portobj<0>(), _pFixedDeformableBvh->clvs().portobj<0>(), _pFixedDeformableBvh->ctks().portobj<0>(), osize, (const int2*)_fronts.cbuf(1),
+			_log.portobj<0>(), _fronts.nsizes(), _fronts.nbufs());
+
+		_fronts.slide();
+		reorderFronts();
+		Logger::recordSection<TimerType::GPU>("broad_phase_restr_front");
 
 		_restructured = true;
 	}

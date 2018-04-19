@@ -72,6 +72,7 @@ namespace mn {
 		thrust::device_vector<int>	d_IntFtIndices;
 
 		int							*d_cpNum, _cpNum, *d_actualCpNum, _actualCpNum;
+		uint                         *d_extFtNodeCnt, _extFtNodeCnt, *d_intFtNodeCnt, _intFtNodeCnt;
 		thrust::device_vector<int2>	d_cpRes;
 		thrust::device_vector<int2>	d_orderedCdpairs;
 	};

@@ -29,15 +29,15 @@ namespace mn {
 		BvttFrontSettings() = delete;
 		~BvttFrontSettings() = delete;
 
-		static const int	_maxExtFrontSize = 33554432;	//(1 << 25)
+		//static const int	_maxExtFrontSize = 33554432;	//(1 << 25)
 		//static const int	_maxExtFrontSize = 16777216;	//(1 << 24)
 		//static const int	_maxExtFrontSize = 3000000;
-		//static const int	_maxExtFrontSize = 50000000;
+		static const int	_maxExtFrontSize = 50000000;
 
 		//static const int	_maxIntFrontSize = 16777216;	//(1 << 24)
 		//static const int	_maxIntFrontSize = 5000000;
-		static const int	_maxIntFrontSize = 33554432;
-		//static const int	_maxIntFrontSize = 50000000;
+		//static const int	_maxIntFrontSize = 33554432;
+		static const int	_maxIntFrontSize = 50000000;
 		
 		//static const int	_maxCollisionPairNum = 8388608;		//(1 << 23)
 		//static const int	_maxCollisionPairNum = 4194304;		//(1 << 22)

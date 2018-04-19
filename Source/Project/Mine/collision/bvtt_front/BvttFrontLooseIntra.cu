@@ -26,6 +26,8 @@ namespace mn {
 		checkThrustErrors(d_ExtFtIndices.resize(config.extNodeSize));
 		checkThrustErrors(d_snapshot.resize(config.intNodeSize));
 
+		checkCudaErrors(cudaMalloc((void**)&d_extFtNodeCnt, sizeof(uint)));
+		checkCudaErrors(cudaMalloc((void**)&d_intFtNodeCnt, sizeof(uint)));
 		checkCudaErrors(cudaMalloc((void**)&d_cpNum, sizeof(int)));
 		checkCudaErrors(cudaMalloc((void**)&d_actualCpNum, sizeof(int)));
 		checkThrustErrors(d_cpRes.resize(config.cpNum));
@@ -36,6 +38,8 @@ namespace mn {
 	}
 
 	BvttFrontLooseIntra::~BvttFrontLooseIntra() {
+		checkCudaErrors(cudaFree(d_intFtNodeCnt));
+		checkCudaErrors(cudaFree(d_extFtNodeCnt));
 		checkCudaErrors(cudaFree(d_actualCpNum));
 		checkCudaErrors(cudaFree(d_cpNum));
 		_log.cleanup();
@@ -77,14 +81,32 @@ namespace mn {
 				inspectResults();
 				return;
 			} 
-			if (_pBvh->bvhOptTag() == 1) {		///< restr
-				Logger::message("restructure front(in restr) ");
-				//generate(); 
-				restructure(); 
-				proximityQuery();
-				inspectResults();
-				_restructured = true;
-				return;
+			if (_pBvh->bvhOptTag() == 1) {		///< bvh restr
+				checkCudaErrors(cudaMemset(d_extFtNodeCnt, 0, sizeof(uint)));
+				checkCudaErrors(cudaMemset(d_intFtNodeCnt, 0, sizeof(uint)));
+				configuredLaunch({ "CountRestrFrontNodes", (int)_pBvh->getExtNodeSize() + (int)_pBvh->getIntNodeSize() }, countRestrFrontNodes,
+					make_uint2(_pBvh->getExtNodeSize(), _pBvh->getIntNodeSize()), _pBvh->restrLog().portobj<0>(), _log.portobj<0>(), d_intFtNodeCnt, d_extFtNodeCnt);
+				uint2 osizes = make_uint2(_fronts.cs(0), _fronts.cs(1));
+				checkCudaErrors(cudaMemcpy(&_extFtNodeCnt, d_extFtNodeCnt, sizeof(int), cudaMemcpyDeviceToHost));
+				checkCudaErrors(cudaMemcpy(&_intFtNodeCnt, d_intFtNodeCnt, sizeof(int), cudaMemcpyDeviceToHost));
+				if ((_extFtNodeCnt + _intFtNodeCnt) * 1. / (osizes.x + osizes.y) > 0.30) {	///< front build
+					Logger::message("build front(in restr). ");
+					printf("bd front: restr(%d, %d) total(%d, %d) ratio: %.3f\n", _intFtNodeCnt, _extFtNodeCnt, osizes.x, osizes.y, (_extFtNodeCnt + _intFtNodeCnt) * 1. / (osizes.x + osizes.y));
+					//getchar();
+					generate();
+					inspectResults();
+					return;
+				}
+				else {			///< front restr
+					Logger::message("restructure front(in restr) ");
+					printf("rt front: restr(%d, %d) total(%d, %d) ratio: %.3f\n", _intFtNodeCnt, _extFtNodeCnt, osizes.x, osizes.y, (_extFtNodeCnt + _intFtNodeCnt) * 1. / (osizes.x + osizes.y));
+					//getchar();
+					generate(); 
+					//restructure();
+					inspectResults();
+					_restructured = true;
+					return;
+				}
 			}
 			/// otherwise adopt regular front operation
 		}
@@ -345,15 +367,34 @@ Logger::recordSection<TimerType::GPU>("broad_phase_prep_front_restr");
 				_fronts.nsizes(), _fronts.nbufs(), d_cpNum, getRawPtr(d_cpRes));
 
 		_fronts.slide();
-
-Logger::recordSection<TimerType::GPU>("broad_phase_restr_front");
-
 		reorderFronts();
-		if (CDBenchmarkSettings::enableRestr())
-			calcSnapshot();
 
 		checkCudaErrors(cudaMemcpy(&_cpNum, d_cpNum, sizeof(int), cudaMemcpyDeviceToHost));
 		checkThrustErrors(thrust::copy(getDevicePtr(d_cpRes), getDevicePtr(d_cpRes) + _cpNum, getDevicePtr(d_orderedCdpairs)));
+
+		/// prune after restr
+		_log.clear(_pBvh->getExtNodeSize());
+		_fronts.retrieveSizes();
+		_fronts.resetNextSizes();
+
+		uint osize;
+		osize = _fronts.cs(0);
+		configuredLaunch({ "PruneIntLooseIntraFrontsWithLog", (int)osize }, pruneIntLooseIntraFrontsWithLog,
+			_pBvh->clvs().portobj<0>(), _pBvh->ctks().portobj<0>(), osize, (const int2*)_fronts.cbuf(0),
+			_log.portobj<0>(), _fronts.nsizes(), _fronts.nbufs());
+		osize = _fronts.cs(1);
+		configuredLaunch({ "PruneExtLooseIntraFrontsWithLog", (int)osize }, pruneExtLooseIntraFrontsWithLog,
+			_pBvh->clvs().portobj<0>(), _pBvh->ctks().portobj<0>(), osize, (const int2*)_fronts.cbuf(1),
+			_log.portobj<0>(), _fronts.nsizes(), _fronts.nbufs());
+
+		_fronts.slide();
+
+Logger::recordSection<TimerType::GPU>("broad_phase_restr_front");
+
+		if (CDBenchmarkSettings::enableRestr()) {
+			checkQuality();
+		}
+		reorderFronts();
  
 		_restructured = true;
 	}

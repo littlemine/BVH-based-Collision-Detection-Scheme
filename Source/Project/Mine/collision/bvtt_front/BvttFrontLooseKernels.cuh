@@ -28,10 +28,14 @@ namespace mn {
 
 	__global__ void sproutIntLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void pruneIntLooseIntraFrontsWithLog(const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists);
 	__global__ void maintainIntLooseIntraFrontsWithLog(const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
 	__global__ void sproutExtLooseIntraFrontsWithLog(BvhExtNodeCompletePort _lvs, uint ftSize, const int2 *_extFront,
 		FlOrderCompletePort _log, int *_cpNum, int2 *_cpRes);
+	__global__ void pruneExtLooseIntraFrontsWithLog(const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_extFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists);
 	__global__ void maintainExtLooseIntraFrontsWithLog(const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_extFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
 
@@ -67,10 +71,14 @@ namespace mn {
 
 	__global__ void sproutIntLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, BvhExtNodeCompletePort _lvs, BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
+	__global__ void pruneIntLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists);
 	__global__ void maintainIntLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_intFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
 	__global__ void sproutExtLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, BvhExtNodeCompletePort _lvs, uint ftSize, const int2 *_extFront,
 		FlOrderCompletePort _log, int *_cpNum, int2 *_cpRes);
+	__global__ void pruneExtLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_extFront,
+		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists);
 	__global__ void maintainExtLooseInterFrontsWithLog(const BvhPrimitiveCompletePort _travPrims, const BvhExtNodeCompletePort _lvs, const BvhIntNodeCompletePort _tks, uint ftSize, const int2 *_extFront,
 		FlOrderCompletePort _log, uint *_ftSlideSizes, int2 **_slideFtLists, int *_cpNum, int2 *_cpRes);
 
@@ -93,6 +101,7 @@ namespace mn {
 	/// quality inspection
 	__global__ void frontSnapshot(uint intSize, BvhIntNodeCompletePort _tks, FlOrderCompletePort _frontLog, float* _snapshot);
 	__global__ void checkFrontQuality(uint intSize, BvhIntNodeCompletePort _tks, FlOrderCompletePort _frontLog, float* _snapshot, BvhRestrCompletePort _restrLog);
+	__global__ void countRestrFrontNodes(uint2 bvhSizes, BvhRestrCompletePort _restrLog, FlOrderCompletePort _frontLog, uint* _intCount, uint* _extCount);
 
 }
 

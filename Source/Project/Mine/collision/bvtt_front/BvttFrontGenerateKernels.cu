@@ -9,6 +9,19 @@
 
 namespace mn {
 
+	__global__ void countRestrFrontNodes(uint2 bvhSizes, BvhRestrCompletePort _restrLog, FlOrderCompletePort _frontLog, uint* _intCount, uint* _extCount) {
+		int idx = blockIdx.x * blockDim.x + threadIdx.x;
+		if (idx >= bvhSizes.x + bvhSizes.y) return;
+		if (idx >= bvhSizes.x) {	///< ext branch
+			idx -= bvhSizes.x;
+			if (_restrLog.extrt(idx))
+				atomicAdd(_extCount, _frontLog.extcnt(idx));
+		}
+		else {		///< int branch
+			if (_restrLog.intrt(idx))
+				atomicAdd(_intCount, _frontLog.intcnt(idx));
+		}
+	}
 
 	__global__ void frontSnapshot(uint intSize, BvhIntNodeCompletePort _tks, FlOrderCompletePort _frontLog, float* _snapshot) {
 		int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -26,7 +39,8 @@ namespace mn {
 
 		/// various quality threshold can be test here!
 		if (1.0 * (intCnt = _frontLog.intbeg(idx + range.y - range.x) - _frontLog.intbeg(idx)) / (extCnt = _frontLog.extbeg(range.y + 1) - _frontLog.extbeg(range.x))
-			> _snapshot[idx] + 1 - 0.7 * (range.y - range.x) / intSize) {
+			//> _snapshot[idx] + 1 - 0.7 * (range.y - range.x) / intSize) {
+			> _snapshot[idx] + 1 - 0.7 * intCnt / _frontLog.intbeg(intSize)) {
 		
 			atomicAdd(&_restrLog.intrange(idx), 1);
 			atomicAdd(&_restrLog.intrange(idx + range.y - range.x), -1);
