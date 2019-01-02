@@ -17,7 +17,7 @@ If you plan to use Visual Studio 2017, please make sure build and link the corre
 2. Credits
 ------------------------------------------------------------------------------
 
-[CAMA](http://gamma.cs.unc.edu/CAMA/)
+[I-Cloth](http://gamma.cs.unc.edu/CAMA/)
 
 [gProximity](http://gamma.cs.unc.edu/GPUCOL/)
 
