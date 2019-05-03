@@ -1,4 +1,5 @@
 #include "CudaProjectApp.h"
+#include <utility\CudaHostUtils.h>
 
 // systems
 #include "system\Log\Logger.hpp"
@@ -22,12 +23,16 @@ namespace mn {
 	}
 
 	int SimpleApp::Main(int iQuantity, char** apcArguments) {
+		reportMemory();
+		printf("Begin allocating memory for BVH\n");
 		_bvh = std::make_unique<LBvh<ModelType::FixedDeformableType>>(LBvhBuildConfig{});
+		printf("Begin allocating memory for BVTT fronts\n");
 		_fl = std::make_unique<BvttFront<BvttFrontType::LooseIntraType>>(mn::BvttFrontIntraBuildConfig<mn::LBvh<mn::ModelType::FixedDeformableType>>(
 			 _bvh.get(), BvttFrontType::LooseIntraType,
 				BvttFrontSettings::ext_front_size(), BvttFrontSettings::int_front_size(),
 				BvhSettings::ext_node_size(), BvhSettings::int_node_size() 
 		));
+		printf("End GPU memory allocations\n");
 
 		// Main loop
 		while (true) {

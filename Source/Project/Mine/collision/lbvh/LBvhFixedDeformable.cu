@@ -41,14 +41,15 @@ namespace mn {
 		d_keys64.resize(config.primSize);
 		d_vals.resize(config.primSize);
 
-		d_prevLbds.resize(config.intSize);
-		d_prevRbds.resize(config.intSize);
-		d_gatherMap.resize(config.primSize);
-		d_taskSequence.resize(config.primSize);	///< task sequence for primitives, external nodes
-		d_sequence.resize(config.primSize);
-		d_rtSubtrees.resize(config.intSize << 1);	///< stores root nodes of subtree
-		d_sizePerSubtree.resize(config.intSize << 1);
-		d_begPerSubtree.resize(config.intSize << 1);
+		/// the following only used in the restructuring scheme
+		//d_prevLbds.resize(config.intSize);
+		//d_prevRbds.resize(config.intSize);
+		//d_gatherMap.resize(config.primSize);
+		//d_taskSequence.resize(config.primSize);	///< task sequence for primitives, external nodes
+		//d_sequence.resize(config.primSize);
+		//d_rtSubtrees.resize(config.intSize << 1);	///< stores root nodes of subtree
+		//d_sizePerSubtree.resize(config.intSize << 1);
+		//d_begPerSubtree.resize(config.intSize << 1);
 		);
 		reportMemory();
 	}

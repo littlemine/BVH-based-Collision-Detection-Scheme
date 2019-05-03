@@ -47,19 +47,19 @@ namespace mn {
 		//Benchmark{ 1, 501, "funnel.plys\\%03d.ply", "funnel-18k","%s\\%s.txt",{ CDSchemeType::BVHCD_FROM_CLUSTERED_PAIRS, "bvhcdclusteredpairs" } },
 		//Benchmark{ 0, 706, "flamenco5\\flamenco5.%d.ply", "flamenco-49k","%s\\%s.txt",{ CDSchemeType::BVHCD_FROM_CLUSTERED_PAIRS, "bvhcdclusteredpairs" } },
 		*/
-		//Benchmark{ 0, 76, "balls16_.plys\\balls16_%d.ply", "nbody-146k","%s\\%s.txt",{ CDSchemeType::GENERATE, "generate" } },
+		Benchmark{ 0, 76, "balls16_.plys\\balls16_%d.ply", "nbody-146k","%s\\%s.txt",{ CDSchemeType::GENERATE, "generate" } },
 		//Benchmark{ 0, 16, "dragbun.plys\\dragbun%d.ply", "dragbun-252k","%s\\%s.txt",{ CDSchemeType::GENERATE, "generate" } },
 		//Benchmark{ 0, 706, "flamenco5\\flamenco5.%d.ply", "flamenco-49k","%s\\%s.txt",{ CDSchemeType::GENERATE, "generate" } },
 
 		Benchmark{ 0, 94, "cloth_ball.plys\\cloth_ball%d.ply", "clothball-92k","%s\\%s.txt",{ CDSchemeType::REFIT_ONLY_FRONT, "refit_only" } },
 		Benchmark{ 1, 500, "funnel.plys\\%03d.ply", "funnel-18k","%s\\%s.txt",{ CDSchemeType::REFIT_ONLY_FRONT, "refit_only" } },
-		Benchmark{ 0, 706, "flamenco5\\flamenco5.%d.ply", "flamenco-49k","%s\\%s.txt",{ CDSchemeType::REFIT_ONLY_FRONT, "refit_only" } },
-		Benchmark{ 0, 210, "princess.plys\\princess%d.ply", "princess-40k","%s\\%s.txt",{ CDSchemeType::REFIT_ONLY_FRONT, "refit_only" } },
+		//Benchmark{ 0, 706, "flamenco5\\flamenco5.%d.ply", "flamenco-49k","%s\\%s.txt",{ CDSchemeType::REFIT_ONLY_FRONT, "refit_only" } },
+		//Benchmark{ 0, 210, "princess.plys\\princess%d.ply", "princess-40k","%s\\%s.txt",{ CDSchemeType::REFIT_ONLY_FRONT, "refit_only" } },
 
 		Benchmark{ 0, 94, "cloth_ball.plys\\cloth_ball%d.ply", "clothball-92k","%s\\%s.txt",{ CDSchemeType::STATIC_MANDATORY, "static_mandatory" } },
 		Benchmark{ 1, 500, "funnel.plys\\%03d.ply", "funnel-18k","%s\\%s.txt",{ CDSchemeType::STATIC_MANDATORY, "static_mandatory" } },
-		Benchmark{ 0, 706, "flamenco5\\flamenco5.%d.ply", "flamenco-49k","%s\\%s.txt",{ CDSchemeType::STATIC_MANDATORY, "static_mandatory" } },
-		Benchmark{ 0, 210, "princess.plys\\princess%d.ply", "princess-40k","%s\\%s.txt",{ CDSchemeType::STATIC_MANDATORY, "static_mandatory" } },
+		//Benchmark{ 0, 706, "flamenco5\\flamenco5.%d.ply", "flamenco-49k","%s\\%s.txt",{ CDSchemeType::STATIC_MANDATORY, "static_mandatory" } },
+		//Benchmark{ 0, 210, "princess.plys\\princess%d.ply", "princess-40k","%s\\%s.txt",{ CDSchemeType::STATIC_MANDATORY, "static_mandatory" } },
 
 		//Benchmark{ 0, 94, "cloth_ball.plys\\cloth_ball%d.ply", "clothball-92k","%s\\%s.txt",{ CDSchemeType::FRONT_GENERATE, "front_generate" } },
 		//Benchmark{ 1, 501, "funnel.plys\\%03d.ply", "funnel-18k","%s\\%s.txt",{ CDSchemeType::FRONT_GENERATE, "front_generate" } },

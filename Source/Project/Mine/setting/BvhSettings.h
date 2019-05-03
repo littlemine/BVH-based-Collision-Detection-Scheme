@@ -32,8 +32,10 @@ namespace mn {
 		BvhSettings() = delete;
 		~BvhSettings() = delete;
 		
-		static const int	_maxPrimitiveSize = 524288;				///< (1 << 19);
-		static const int	_maxExtNodeSize = 524288;				///< (1 << 19);
+		static const int	_maxPrimitiveSize = 150000;				///< (1 << 19);
+		static const int	_maxExtNodeSize = 150000;				///< (1 << 19);
+		//static const int	_maxPrimitiveSize = 524288;				///< (1 << 19);
+		//static const int	_maxExtNodeSize = 524288;				///< (1 << 19);
 		//static const int	_maxPrimitiveSize = 4194304;			///< (1 << 22);
 		//static const int	_maxExtNodeSize = 4194304;				///< (1 << 22);
 		//static const int	_maxPrimitiveSize = 2097152;			///< (1 << 21);
