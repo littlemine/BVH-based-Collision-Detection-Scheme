@@ -2,7 +2,10 @@
 #include <filesystem>
 #include "system\Logic\BenchmarkLogic.hpp"
 
+namespace fs = std::filesystem;
+
 namespace mn {
+	using path = fs::path;
 
 	Scene::Scene() { clearMeshes(); }
 	Scene::Scene(ModelReader loader) : _kModelLoader(loader) { clearMeshes(); }

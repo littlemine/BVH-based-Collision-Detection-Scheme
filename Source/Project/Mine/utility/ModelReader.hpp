@@ -1,6 +1,7 @@
 #ifndef __MODEL_READER_HPP_
 #define __MODEL_READER_HPP_
 
+#include <cassert>
 #include <vector>
 #include <assimp/cimport.h>
 #include <assimp/scene.h>

@@ -4,3 +4,7 @@
 *.ptx
 *.cubin
 *.fatbin
+.vs
+out
+build
+Source/Temp

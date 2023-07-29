@@ -4,6 +4,7 @@
 #include "Meta.h"
 #include <array>
 #include <cuda_runtime.h>
+#include <cstdio>
 
 namespace mn {
 

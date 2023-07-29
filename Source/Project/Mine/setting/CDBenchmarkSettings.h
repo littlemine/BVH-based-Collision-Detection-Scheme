@@ -2,6 +2,7 @@
 #define __CD_BENCHMARK_SETTINGS_H_
 
 #include <vector>
+#include <string>
 
 namespace mn {
 
