@@ -5,9 +5,9 @@
 #include <thrust/scan.h>
 #include <thrust/fill.h>
 #include <thrust/sequence.h>
-#include "system\CudaDevice\CudaKernelLauncher.cu"
-#include "utility\CudaThrustUtils.hpp"
-#include "utility\CudaDeviceUtils.h"
+#include "system/CudaDevice/CudaKernelLauncher.cu"
+#include "utility/CudaThrustUtils.hpp"
+#include "utility/CudaDeviceUtils.h"
 
 namespace mn {
 

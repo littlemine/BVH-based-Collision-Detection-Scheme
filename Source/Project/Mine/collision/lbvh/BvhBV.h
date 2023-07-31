@@ -7,9 +7,9 @@
 #ifndef __BVH_BV_H_
 #define __BVH_BV_H_
 
-#include "base\Bv.h"
-#include "base\AggregatedAttribs.h"
-#include "utility\Utils.h"
+#include "base/Bv.h"
+#include "base/AggregatedAttribs.h"
+#include "utility/Utils.h"
 
 namespace mn {
 

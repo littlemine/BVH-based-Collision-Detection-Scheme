@@ -3,8 +3,8 @@
 #include <cuda_runtime.h>
 #include <helper_cuda.h>
 #include <thrust/fill.h>
-#include "system\CudaDevice\CudaKernelLauncher.cu"
-#include "utility\CudaThrustUtils.hpp"
+#include "system/CudaDevice/CudaKernelLauncher.cu"
+#include "utility/CudaThrustUtils.hpp"
 
 namespace mn {
 

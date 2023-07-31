@@ -7,10 +7,10 @@
 
 #include <thrust/device_vector.h>
 
-#include "setting\BvttFrontSettings.h"
-#include "base\MultiArray.h"
-#include "collision\auxiliary\FlOrderLog.h"
-#include "collision\lbvh\LBvh.h"
+#include "setting/BvttFrontSettings.h"
+#include "base/MultiArray.h"
+#include "collision/auxiliary/FlOrderLog.h"
+#include "collision/lbvh/LBvh.h"
 
 namespace mn {
 

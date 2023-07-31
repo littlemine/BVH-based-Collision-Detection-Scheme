@@ -1,7 +1,7 @@
 #include "narrow_phase.cuh"
-#include "collision\LBVH\BvhBV.h"
-#include "utility\CudaDeviceUtils.h"
-#include <gProximity\cuda_intersect_tritri.h>
+#include "collision/lbvh/BvhBV.h"
+#include "utility/CudaDeviceUtils.h"
+#include <gProximity/cuda_intersect_tritri.h>
 
 namespace mn {
 

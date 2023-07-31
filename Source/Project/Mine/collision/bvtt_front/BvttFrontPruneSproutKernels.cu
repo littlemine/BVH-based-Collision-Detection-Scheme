@@ -1,10 +1,10 @@
 #include "BvttFrontLooseKernels.cuh"
 #include <cuda_runtime.h>
-#include "utility\CudaDeviceUtils.h"
-#include "setting\CDBenchmarkSettings.h"
-#include "collision\lbvh\BvhExtNode.h"
-#include "collision\lbvh\BvhIntNode.h"
-#include "collision\auxiliary\FlOrderLog.h"
+#include "utility/CudaDeviceUtils.h"
+#include "setting/CDBenchmarkSettings.h"
+#include "collision/lbvh/BvhExtNode.h"
+#include "collision/lbvh/BvhIntNode.h"
+#include "collision/auxiliary/FlOrderLog.h"
 
 namespace mn {
 

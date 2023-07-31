@@ -7,7 +7,7 @@
 #ifndef __BVH_RESTR_LOG_H_
 #define __BVH_RESTR_LOG_H_
 
-#include "base\AggregatedAttribs.h"
+#include "base/AggregatedAttribs.h"
 
 namespace mn {
 

@@ -2,7 +2,7 @@
 #include <cassert>
 #include <cuda_runtime.h>
 #include <helper_cuda.h>
-#include "system\CudaDevice\CudaKernelLauncher.cu"
+#include "system/CudaDevice/CudaKernelLauncher.cu"
 
 namespace mn {
 

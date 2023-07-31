@@ -1,18 +1,18 @@
 #include "LBvhFixedDeformable.h"
 #include <cstdio>
-#include <thrust\sort.h>
-#include <thrust\count.h>
-#include <thrust\sequence.h>
-#include <thrust\execution_policy.h>
+#include <thrust/sort.h>
+#include <thrust/count.h>
+#include <thrust/sequence.h>
+#include <thrust/execution_policy.h>
 
-#include "utility\CudaThrustUtils.hpp"
-#include "utility\CudaKernelUtils.cuh"
-#include "system\CudaDevice\CudaDevice.h"
-#include "system\CudaDevice\CudaKernelLauncher.cu"
+#include "utility/CudaThrustUtils.hpp"
+#include "utility/CudaKernelUtils.cuh"
+#include "system/CudaDevice/CudaDevice.h"
+#include "system/CudaDevice/CudaKernelLauncher.cu"
 
-#include "utility\CudaDeviceUtils.h"
-#include "utility\CudaThrustUtils.hpp"
-#include "setting\CDBenchmarkSettings.h"
+#include "utility/CudaDeviceUtils.h"
+#include "utility/CudaThrustUtils.hpp"
+#include "setting/CDBenchmarkSettings.h"
 
 namespace mn {
 
@@ -180,7 +180,7 @@ Logger::recordSection<TimerType::GPU>("sort_bvh");
 	void LBvhFixedDeformable::refit() {
 
 		cbvh().lvs().clearExtBvs(cbvh().extSize());
-#if MACRO_VERSION{
+#if MACRO_VERSION
 			configuredLaunch({ "RefitExtNodeARCSim", cbvh().primSize() }, refitExtNodeARCSim,
 				cbvh().primSize(), cbvh().lvs().portobj<0>(), getRawPtr(d_primMap), d_facesARCSim, d_bxsARCSim);
 #else

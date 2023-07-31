@@ -1,9 +1,9 @@
 #include "LBvhKernels.cuh"
 #include <cuda_runtime.h>
-#include "utility\CudaDeviceUtils.h"
+#include "utility/CudaDeviceUtils.h"
 #include "BvhExtNode.h"
 #include "BvhIntNode.h"
-#include "setting\BvhSettings.h"
+#include "setting/BvhSettings.h"
 
 namespace mn {
 
@@ -108,7 +108,7 @@ namespace mn {
 	__global__ void copyBackCodes(int size, uint64* _primcodes, uint* _codes) {
 		int idx = blockIdx.x * blockDim.x + threadIdx.x;
 		if (idx >= size) return;
-		_primcodes[idx] = _codes[idx] << 32;
+		_primcodes[idx] = (uint64)_codes[idx] << (uint64)32;
 	}
 
 	__global__ void buildPrimitives(int size, BvhPrimitiveCompletePort _prims, int *_primMap, int3 *_faces, PointType *_vertices) {	///< update idx-th _bxs to idx-th leaf

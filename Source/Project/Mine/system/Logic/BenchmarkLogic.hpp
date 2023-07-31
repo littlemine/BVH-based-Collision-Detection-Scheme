@@ -1,10 +1,10 @@
 #ifndef __BENCHMARK_LOGIC_HPP_
 #define __BENCHMARK_LOGIC_HPP_
 
-#include "base\Singleton.h"
-#include "setting\CDBenchmarkSettings.h"
-#include "collision\bvtt_front\BvttFrontLooseIntra.h"
-#include "collision\bvtt_front\BvttFrontLooseInter.h"
+#include "base/Singleton.h"
+#include "setting/CDBenchmarkSettings.h"
+#include "collision/bvtt_front/BvttFrontLooseIntra.h"
+#include "collision/bvtt_front/BvttFrontLooseInter.h"
 
 namespace mn {
 
@@ -77,7 +77,11 @@ namespace mn {
 				}
 				break;
 			default:
+#ifdef _MSC_VER
 				__assume(false);
+#else
+				__builtin_unreachable();
+#endif
 			}
 			return std::make_pair(bvhOpt, frontOpt);
 		}
@@ -142,8 +146,11 @@ namespace mn {
 					break;
 				}
 			default:
+#ifdef _MSC_VER
 				__assume(false);
-				//__builtin_unreachable();
+#else
+				__builtin_unreachable();
+#endif
 			}
 			return std::make_pair(bvhOpt, frontOpt);
 		}

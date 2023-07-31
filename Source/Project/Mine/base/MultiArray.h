@@ -20,6 +20,14 @@ namespace mn {
 	template<typename T, uchar _total>
 	class MultiArray : public MultiObjectD<T*, _total> {	///< another scheme is to use thrust::device_vector
 	public:
+		using MultiObjectD<T*, _total>::_span;
+		using MultiObjectD<T*, _total>::_offset;
+		using MultiObjectD<T*, _total>::d_objs;
+
+		using MultiObjectD<T*, _total>::dptr;
+		using MultiObjectD<T*, _total>::cdp;
+		using MultiObjectD<T*, _total>::ndp;
+
 		MultiArray();
 		~MultiArray();
 
@@ -121,7 +129,8 @@ namespace mn {
 		_span = span;
 		h_lens = new uint[_total];
 		_bufSizes = new uint[_span];
-		memcpy_s(_bufSizes, sizeof(uint) * _span, elemNums, sizeof(uint) * _span);
+		std::memcpy(_bufSizes, elemNums, sizeof(uint) * _span);
+		// memcpy_s(_bufSizes, sizeof(uint) * _span, elemNums, sizeof(uint) * _span);
 
 		checkCudaErrors(cudaMalloc((void**)&d_lens, sizeof(uint)*_total));
 		for (int i = 0; i < _total; i++)

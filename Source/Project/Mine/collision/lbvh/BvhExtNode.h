@@ -7,7 +7,7 @@
 #ifndef __BVH_EXT_NODE_H_
 #define __BVH_EXT_NODE_H_
 
-#include "base\AggregatedAttribs.h"
+#include "base/AggregatedAttribs.h"
 #include "BvhPrimitiveNode.h"
 
 namespace mn {

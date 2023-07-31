@@ -1,6 +1,6 @@
 #include "LBvhKernels.cuh"
 #include <cuda_runtime.h>
-#include "utility\CudaDeviceUtils.h"
+#include "utility/CudaDeviceUtils.h"
 #include "BvhExtNode.h"
 #include "BvhIntNode.h"
 

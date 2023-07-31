@@ -1,8 +1,8 @@
 #ifndef __SYSTEM_CUDA_DEVICE_H_
 #define __SYSTEM_CUDA_DEVICE_H_
 
-#include "base\Singleton.h"
-#include "utility\CudaExecutionPolicy.h"
+#include "base/Singleton.h"
+#include "utility/CudaExecutionPolicy.h"
 #include <unordered_map>
 #include <string>
 #include <driver_types.h>
@@ -14,7 +14,7 @@ namespace mn {
 		CudaDevice();
 		~CudaDevice();
 
-		using KernelFunc = const void*;
+		using KernelFunc = void*;
 		
 		struct KernelConfig {		///< static kernel attrib, could contain run-time debugger setting(error checking/ time recording etc...)
 			KernelFunc		func;
@@ -22,7 +22,7 @@ namespace mn {
 			cudaFuncCache	cachePreference;
 			bool			waveFashion;		///< general fashion or loop fashion
 			int				maxOccBlockSize;	///< condition: use no shared memory
-			explicit CudaDevice::KernelConfig(KernelFunc f = nullptr, cudaFuncCache cacheConfig = cudaFuncCachePreferNone, bool isWave = false);
+			KernelConfig(KernelFunc f = nullptr, cudaFuncCache cacheConfig = cudaFuncCachePreferNone, bool isWave = false);
 		};
 
 		static void registerKernel(const std::string& tag, KernelFunc f, cudaFuncCache cacheConfig = cudaFuncCachePreferL1, bool waveFashion = true);

@@ -21,9 +21,9 @@ namespace mn {
 
 	class BvhSettings {				///< static (pre-defined) setting
 	public:
-		static const int prim_size() { return _maxPrimitiveSize; }
-		static const int ext_node_size() { return _maxExtNodeSize; }
-		static const int int_node_size() { return _maxIntNodeSize; }
+		static int prim_size() { return _maxPrimitiveSize; }
+		static int ext_node_size() { return _maxExtNodeSize; }
+		static int int_node_size() { return _maxIntNodeSize; }
 
 		static  int mandatoryRebuildCycle() { return _mandatoryRebuildCycle; }
 		static uchar& maintainScheme() { return _maintainScheme; }

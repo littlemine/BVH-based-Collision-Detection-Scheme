@@ -1,9 +1,9 @@
 #ifndef __CUDA_LAUNCHER_H_
 #define __CUDA_LAUNCHER_H_
 
-#include "utility\CudaExecutionPolicy.h"
+#include "utility/CudaExecutionPolicy.h"
 #include "CudaDevice.h"
-#include "system\Log\Logger.hpp"
+#include "system/Log/Logger.hpp"
 
 namespace mn {
 

@@ -1,9 +1,9 @@
 #ifndef __LOGGER_HPP_
 #define __LOGGER_HPP_
 
-#include "base\Singleton.h"
-#include "utility\CudaTimer.hpp"
-#include "utility\Timer.hpp"
+#include "base/Singleton.h"
+#include "utility/CudaTimer.hpp"
+#include "utility/Timer.hpp"
 #include <iostream>
 #include <filesystem>
 
@@ -66,7 +66,7 @@ namespace mn {
 	inline void Logger::blankLine<TimerType::CPU>() { getInstance()->_kCPUTimer.blankLine(); }
 
 	inline void Logger::record(const std::string& filename) {
-		using namespace std::experimental::filesystem;
+		using namespace fs;
 		path outputTarget(filename);
 		if (outputTarget.empty()) return;
 		if (!exists(outputTarget.parent_path()))

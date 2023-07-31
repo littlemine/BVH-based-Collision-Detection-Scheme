@@ -2,10 +2,10 @@
 #define __LBVH_KERNELS_H_
 
 #include <cuda_runtime.h>
-#include "utility\Meta.h"
-#include "collision\lbvh\BvhIntNode.h"
-#include "collision\lbvh\BvhExtNode.h"
-#include "collision\auxiliary\BvhRestrLog.h"
+#include "utility/Meta.h"
+#include "collision/lbvh/BvhIntNode.h"
+#include "collision/lbvh/BvhExtNode.h"
+#include "collision/auxiliary/BvhRestrLog.h"
 
 namespace mn {
 

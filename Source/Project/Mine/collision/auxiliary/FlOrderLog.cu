@@ -1,6 +1,6 @@
 #include "FlOrderLog.h"
-#include "thrust\scan.h"
-#include "utility\CudaThrustUtils.hpp"
+#include "thrust/scan.h"
+#include "utility/CudaThrustUtils.hpp"
 
 namespace mn {
 

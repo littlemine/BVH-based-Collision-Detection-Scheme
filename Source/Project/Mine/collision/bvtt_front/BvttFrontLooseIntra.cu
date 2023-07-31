@@ -1,15 +1,15 @@
 #include "BvttFrontLooseIntra.h"
 #include "BvttFrontLooseKernels.cuh"
-#include "collision\lbvh\LBvh.h"
-#include "utility\CudaHostUtils.h"
-#include "utility\CudaThrustUtils.hpp"
-#include "utility\CudaKernelUtils.cuh"
-#include "system\CudaDevice\CudaDevice.h"
-#include "system\CudaDevice\CudaKernelLauncher.cu"
-#include "setting\CDBenchmarkSettings.h"
+#include "collision/lbvh/LBvh.h"
+#include "utility/CudaHostUtils.h"
+#include "utility/CudaThrustUtils.hpp"
+#include "utility/CudaKernelUtils.cuh"
+#include "system/CudaDevice/CudaDevice.h"
+#include "system/CudaDevice/CudaKernelLauncher.cu"
+#include "setting/CDBenchmarkSettings.h"
 
-#include <thrust\execution_policy.h>
-#include "collision\narrow_phase\narrow_phase.cuh"
+#include <thrust/execution_policy.h>
+#include "collision/narrow_phase/narrow_phase.cuh"
 
 namespace mn {
 

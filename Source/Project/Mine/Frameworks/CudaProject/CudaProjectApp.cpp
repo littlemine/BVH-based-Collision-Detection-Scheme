@@ -1,10 +1,10 @@
 #include "CudaProjectApp.h"
-#include <utility\CudaHostUtils.h>
+#include <utility/CudaHostUtils.h>
 
 // systems
-#include "system\Log\Logger.hpp"
-#include "system\CudaDevice\CudaDevice.h"
-#include "system\Logic\BenchmarkLogic.hpp"
+#include "system/Log/Logger.hpp"
+#include "system/CudaDevice/CudaDevice.h"
+#include "system/Logic/BenchmarkLogic.hpp"
 
 namespace mn {
 

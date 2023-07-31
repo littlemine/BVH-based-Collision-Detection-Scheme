@@ -30,7 +30,7 @@ namespace mn {
 			printf("Result = FAIL\n");
 			exit(EXIT_FAILURE);
 		}
-		if (deviceCount == 0)	printf("There are no available device(s) that support CUDA\n");
+		if (deviceCount == 0)	printf("There are no available device(s) that support cuda/n");
 		else					printf("Detected %d CUDA Capable device(s)\n", deviceCount);
 		_akDeviceProps = new cudaDeviceProp[deviceCount];
 		for (int i = 0; i < deviceCount; i++) {
@@ -42,12 +42,12 @@ namespace mn {
 			_akDeviceProps[_iDevID].multiProcessorCount, _akDeviceProps[_iDevID].major, 
 			_akDeviceProps[_iDevID].minor);
 
-		printf("# Finished \'CudaDevice\' initialization\n");
+		printf("# Finished \'CudaDevice/' initialization\n");
 	}
 
 	CudaDevice::~CudaDevice() {
 		delete[] _akDeviceProps;
-		printf("# Finished \'CudaDevice\' termination\n");
+		printf("# Finished \'CudaDevice/' termination\n");
 	}
 
 	int CudaDevice::generalGridSize(int& threadNum, int& blockSize) const { return (threadNum + blockSize - 1) / blockSize; }

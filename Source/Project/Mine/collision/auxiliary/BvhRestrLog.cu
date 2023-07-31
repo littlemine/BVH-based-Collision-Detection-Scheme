@@ -1,7 +1,7 @@
 #include "BvhRestrLog.h"
 #include <thrust/scan.h>
-#include "utility\CudaThrustUtils.hpp"
-#include "system\CudaDevice\CudaKernelLauncher.cu"
+#include "utility/CudaThrustUtils.hpp"
+#include "system/CudaDevice/CudaKernelLauncher.cu"
 
 namespace mn {
 

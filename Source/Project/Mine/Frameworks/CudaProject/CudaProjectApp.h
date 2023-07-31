@@ -2,13 +2,13 @@
 #define __CUDA_PROJECT_APP_H_
 
 #include <string>
-#include "base\Singleton.h"
-#include "Frameworks\AppBase\AppBase.h"
+#include "base/Singleton.h"
+#include "Frameworks/AppBase/AppBase.h"
 
 // framework modules
-#include "world\Scene.h"
-#include "collision\lbvh\LBvh.h"
-#include "collision\bvtt_front\BVTTFront.h"
+#include "world/Scene.h"
+#include "collision/lbvh/LBvh.h"
+#include "collision/bvtt_front/BVTTFront.h"
 
 class GLFWwindow;
 

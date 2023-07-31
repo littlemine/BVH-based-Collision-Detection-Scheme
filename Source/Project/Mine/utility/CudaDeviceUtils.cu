@@ -53,9 +53,9 @@ namespace mn {
 	}
 
 	__device__ inline int lane_id(void) { return threadIdx.x % WARP_SIZE; }
-	__device__ inline int warp_bcast(int v, int leader) { return __shfl(v, leader); }
+	__device__ inline int warp_bcast(int v, int leader) { return __shfl_sync(__activemask(), v, leader); }
 	__device__ uint atomicAggInc(uint *ctr) {
-		uint mask = __ballot(1), leader, res;
+		uint mask = __ballot_sync(__activemask(), 1), leader, res;
 		// select the leader
 		leader = __ffs(mask) - 1;
 		// leader does the update
@@ -67,7 +67,7 @@ namespace mn {
 		return res + __popc(mask & ((1 << lane_id()) - 1));
 	}
 	__device__ int atomicAggInc(int *ctr) {
-		int mask = __ballot(1), leader, res;
+		int mask = __ballot_sync(__activemask(), 1), leader, res;
 		// select the leader
 		leader = __ffs(mask) - 1;
 		// leader does the update

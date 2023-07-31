@@ -1,9 +1,9 @@
 #include "CudaProjectModuleRegister.h"
-#include "Frameworks\AppBase\Main.h"
+#include "Frameworks/AppBase/Main.h"
 
-#include "system\Logic\BenchmarkLogic.hpp"
-#include "system\CudaDevice\CudaDevice.h"
-#include "system\Log\Logger.hpp"
+#include "system/Logic/BenchmarkLogic.hpp"
+#include "system/CudaDevice/CudaDevice.h"
+#include "system/Log/Logger.hpp"
 
 #include "CudaProjectApp.h"
 

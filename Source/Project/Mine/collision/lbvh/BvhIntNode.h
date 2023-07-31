@@ -7,7 +7,7 @@
 #ifndef __BVH_INT_NODE_H_
 #define __BVH_INT_NODE_H_
 
-#include "base\AggregatedAttribs.h"
+#include "base/AggregatedAttribs.h"
 #include "BvhBV.h"
 #include "BvhExtNode.h"
 

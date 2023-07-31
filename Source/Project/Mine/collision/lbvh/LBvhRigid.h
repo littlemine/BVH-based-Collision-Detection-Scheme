@@ -2,12 +2,12 @@
 #define __LBVH_RIGID_H_
 
 #include <thrust/device_vector.h>
-#include "setting\BvhSettings.h"
-#include "world\scene.h"
+#include "setting/BvhSettings.h"
+#include "world/Scene.h"
 #include "BvhExtNode.h"
 #include "BvhIntNode.h"
 #include "LBvhKernels.cuh"
-#include "utility\CudaThrustUtils.hpp"
+#include "utility/CudaThrustUtils.hpp"
 
 namespace mn {
 

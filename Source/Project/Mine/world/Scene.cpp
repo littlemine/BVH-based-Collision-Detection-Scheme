@@ -1,6 +1,6 @@
 #include "Scene.h"
 #include <filesystem>
-#include "system\Logic\BenchmarkLogic.hpp"
+#include "system/Logic/BenchmarkLogic.hpp"
 
 namespace fs = std::filesystem;
 
@@ -12,7 +12,7 @@ namespace mn {
 	Scene::~Scene() {}
 
 	bool Scene::update() {
-		using namespace std::experimental::filesystem;
+		using namespace fs;
 		clearMeshes();
 		const std::string &inputFile = BenchmarkLogic::getInstance()->currentInputFile();
 		path inputTarget(inputFile);

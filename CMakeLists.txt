@@ -13,10 +13,10 @@ set_target_properties(bvhcd
   PROPERTIES POSITION_INDEPENDENT_CODE ON
 )
 
-target_include_directories(bvhcd PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source/Externals/inc)
-target_include_directories(bvhcd PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source/Externals/inc/gProximity)
-target_include_directories(bvhcd PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source/Externals/inc/cuda)
-target_include_directories(bvhcd PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source/Project/Mine)
+target_include_directories(bvhcd PRIVATE Source/Externals/inc)
+target_include_directories(bvhcd PRIVATE Source/Externals/inc/gProximity)
+target_include_directories(bvhcd PRIVATE Source/Externals/inc/cuda)
+target_include_directories(bvhcd PRIVATE Source/Project/Mine)
 
 target_compile_options(bvhcd
   PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:${CMAKE_CUDA_FLAGS} -lineinfo --ptxas-options=-allow-expensive-optimizations=true>

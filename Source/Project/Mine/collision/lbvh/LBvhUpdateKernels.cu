@@ -1,9 +1,9 @@
 #include "LBvhKernels.cuh"
 #include <cuda_runtime.h>
-#include "utility\CudaDeviceUtils.h"
+#include "utility/CudaDeviceUtils.h"
 #include "BvhExtNode.h"
 #include "BvhIntNode.h"
-#include "setting\BvhSettings.h"
+#include "setting/BvhSettings.h"
 
 namespace mn {
 

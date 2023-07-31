@@ -1,7 +1,7 @@
 #ifndef __BV_H_
 #define __BV_H_
 
-#include "utility\Meta.h"
+#include "utility/Meta.h"
 #include <cuda_runtime.h>
 #include <cfloat>
 
@@ -11,7 +11,7 @@ namespace mn {
 	public:
 		PointType	_min, _max;
 
-		__host__ __device__ AABB() { empty<ExtentType>(); }
+		inline __host__ __device__ AABB();
 		__host__ __device__ AABB(const AABB& b)  { _min = b._min; _max = b._max; }
 		__host__ __device__ AABB(AABB&& b)  { _min = b._min; _max = b._max; }
 		__host__ __device__ AABB(const ExtentType &minx, const ExtentType &miny, const ExtentType &minz,
@@ -68,18 +68,22 @@ namespace mn {
 		__host__ __device__  ExtentType volume() const  { return width()*height()*depth(); }
 
 		template<typename T>
-		__host__ __device__  void empty();
-		template<>
-		__host__ __device__  void empty<float>() {
-			_max = MakePoint<float>::p(-FLT_MAX, -FLT_MAX, -FLT_MAX);
-			_min = MakePoint<float>::p(FLT_MAX, FLT_MAX, FLT_MAX);
-		}
+		inline __host__ __device__  void empty();
+		
 		//template<>
 		//__host__ __device__  void empty<double>() {
 		//	_max = MakePoint<double>(-DBL_MAX, -DBL_MAX, -DBL_MAX);
 		//	_min = MakePoint<double>(DBL_MAX, DBL_MAX, DBL_MAX);
 		//}
 	};
+
+	template<>
+	inline __host__ __device__  void AABB::empty<float>() {
+		_max = MakePoint<float>::p(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+		_min = MakePoint<float>::p(FLT_MAX, FLT_MAX, FLT_MAX);
+	}
+
+	inline __host__ __device__ AABB::AABB() { empty<ExtentType>(); }
 
 	using BOX = AABB;
 }

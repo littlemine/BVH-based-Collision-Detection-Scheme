@@ -2,13 +2,13 @@
 #define __SCENE_H_
 
 #include <cuda_runtime.h>
-#include "setting\CDBenchmarkSettings.h"
+#include "setting/CDBenchmarkSettings.h"
 
 #if MACRO_VERSION
-#include "cuda\box.cuh"
+#include "cuda/box.cuh"
 #else
-#include "utility\Meta.h"
-#include "utility\ModelReader.hpp"
+#include "utility/Meta.h"
+#include "utility/ModelReader.hpp"
 #endif
 
 namespace mn {
